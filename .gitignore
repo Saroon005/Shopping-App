@@ -1,0 +1,78 @@
+############################
+# Maven
+############################
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+############################
+# Spring Boot
+############################
+*.jar
+*.war
+*.log
+
+############################
+# IDEs
+############################
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Eclipse / STS
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+# VS Code
+.vscode/
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+############################
+# OS Files
+############################
+.DS_Store
+Thumbs.db
+
+############################
+# Environment & Config
+############################
+.env
+
+############################
+# Build / Compiled Files
+############################
+*.class
+
+############################
+# Lombok
+############################
+lombok.config
+
+############################
+# Node (if added later)
+############################
+node_modules/
+
+############################
+# Misc
+############################
+*.swp
+HELP.md
