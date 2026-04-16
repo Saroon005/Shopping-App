@@ -38,9 +38,16 @@ public class Order {
 
 	@OneToMany(mappedBy = "order")
 	private List<OrderItem> orderItemList;
-	
-	
-	
+		
+		
+	public List<OrderItem> getOrderItemList() {
+		return orderItemList;
+	}
+
+	public void setOrderItemList(List<OrderItem> orderItemList) {
+		this.orderItemList = orderItemList;
+	}
+
 	public Order() {
 		orderDate = LocalDateTime.now();
 	}

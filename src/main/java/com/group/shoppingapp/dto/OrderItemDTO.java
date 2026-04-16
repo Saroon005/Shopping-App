@@ -4,18 +4,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class OrderItemDTO {
-
-	private Long id;
 	
 	private Long product_id;
 	
 	private Long order_id;
 	
 	private Integer quantity;
-	
-	private LocalDateTime createdAt;
-	
-	private LocalDateTime updatedAt;
+
 
 	public OrderItemDTO(Long product_id, Long order_id, Integer quantity) {
 		this.product_id = product_id;
