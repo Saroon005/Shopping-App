@@ -1,5 +1,9 @@
 package com.group.shoppingapp.entity;
 
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -14,15 +18,27 @@ public class Notification {
     private String recipientReference; // userId or admin reference
     private String message;
     private String status; // SENT, PENDING, FAILED
+    
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+    
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    public Notification() {}
+    public Notification() {
+    	this.createdAt = LocalDateTime.now();
+    }
 
-    public Notification(Long notificationId, String notificationType, String recipientReference, String message, String status) {
+    public Notification(Long notificationId, String notificationType, String recipientReference, String message, String status, User user) {
         this.notificationId = notificationId;
         this.notificationType = notificationType;
         this.recipientReference = recipientReference;
         this.message = message;
         this.status = status;
+        this.user = user;
+    	this.createdAt = LocalDateTime.now();
+        
     }
 
     public Long getNotificationId() {
@@ -31,6 +47,14 @@ public class Notification {
 
     public void setNotificationId(Long notificationId) {
         this.notificationId = notificationId;
+    }
+    
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+    
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public String getNotificationType() {
@@ -64,4 +88,7 @@ public class Notification {
     public void setStatus(String status) {
         this.status = status;
     }
+    
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
 }
