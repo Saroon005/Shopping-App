@@ -4,16 +4,14 @@ package com.group.shoppingapp.dto;
 public class NotificationResponse {
     private Long notificationId;
     private String notificationType;
-    private String recipientReference;
     private String message;
     private String status;
 
     public NotificationResponse() {}
 
-    public NotificationResponse(Long notificationId, String notificationType, String recipientReference, String message, String status) {
+    public NotificationResponse(Long notificationId, String notificationType,String message, String status) {
         this.notificationId = notificationId;
         this.notificationType = notificationType;
-        this.recipientReference = recipientReference;
         this.message = message;
         this.status = status;
     }
@@ -34,13 +32,6 @@ public class NotificationResponse {
         this.notificationType = notificationType;
     }
 
-    public String getRecipientReference() {
-        return recipientReference;
-    }
-
-    public void setRecipientReference(String recipientReference) {
-        this.recipientReference = recipientReference;
-    }
 
     public String getMessage() {
         return message;

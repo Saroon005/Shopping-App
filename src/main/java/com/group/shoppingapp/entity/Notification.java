@@ -15,7 +15,6 @@ public class Notification {
     private Long notificationId;
 
     private String notificationType; // CHECKOUT_CONFIRMATION, LOW_STOCK
-    private String recipientReference; // userId or admin reference
     private String message;
     private String status; // SENT, PENDING, FAILED
     
@@ -30,10 +29,10 @@ public class Notification {
     	this.createdAt = LocalDateTime.now();
     }
 
-    public Notification(Long notificationId, String notificationType, String recipientReference, String message, String status, User user) {
+    public Notification(Long notificationId, String notificationType,String message, String status, User user) {
         this.notificationId = notificationId;
         this.notificationType = notificationType;
-        this.recipientReference = recipientReference;
+//        this.recipientReference = recipientReference;
         this.message = message;
         this.status = status;
         this.user = user;
@@ -65,13 +64,6 @@ public class Notification {
         this.notificationType = notificationType;
     }
 
-    public String getRecipientReference() {
-        return recipientReference;
-    }
-
-    public void setRecipientReference(String recipientReference) {
-        this.recipientReference = recipientReference;
-    }
 
     public String getMessage() {
         return message;

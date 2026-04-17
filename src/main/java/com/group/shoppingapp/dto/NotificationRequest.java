@@ -2,15 +2,15 @@ package com.group.shoppingapp.dto;
 
 public class NotificationRequest {
     private String notificationType;
-    private String recipientReference;
     private String message;
+    private Long user_id;
 
     public NotificationRequest() {}
 
-    public NotificationRequest(String notificationType, String recipientReference, String message) {
+    public NotificationRequest(String notificationType, Long user_id, String message) {
         this.notificationType = notificationType;
-        this.recipientReference = recipientReference;
         this.message = message;
+        this.user_id = user_id;        		
     }
 
     public String getNotificationType() {
@@ -21,15 +21,17 @@ public class NotificationRequest {
         this.notificationType = notificationType;
     }
 
-    public String getRecipientReference() {
-        return recipientReference;
-    }
+    
 
-    public void setRecipientReference(String recipientReference) {
-        this.recipientReference = recipientReference;
-    }
+    public Long getUser_id() {
+		return user_id;
+	}
 
-    public String getMessage() {
+	public void setUser_id(Long user_id) {
+		this.user_id = user_id;
+	}
+
+	public String getMessage() {
         return message;
     }
 

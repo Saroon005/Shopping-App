@@ -3,7 +3,11 @@ package com.group.shoppingapp.service;
 import com.group.shoppingapp.dto.NotificationRequest;
 import com.group.shoppingapp.dto.NotificationResponse;
 import com.group.shoppingapp.entity.Notification;
+import com.group.shoppingapp.entity.User;
 import com.group.shoppingapp.repository.NotificationRepository;
+import com.group.shoppingapp.repository.UserRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +15,12 @@ import java.util.stream.Collectors;
 
 @Service
 public class NotificationService {
-
+	
     private final NotificationRepository repository;
+    
+    @Autowired
+    private UserRepository userRepo;
+    
 
     public NotificationService(NotificationRepository repository) {
         this.repository = repository;
@@ -21,7 +29,9 @@ public class NotificationService {
     public NotificationResponse createNotification(NotificationRequest request) {
         Notification notification = new Notification();
         notification.setNotificationType(request.getNotificationType());
-        notification.setRecipientReference(request.getRecipientReference());
+        
+        User user = userRepo.findById(request.getUser_id()).orElse(null);
+        notification.setUser(user);
         notification.setMessage(request.getMessage());
         notification.setStatus("PENDING");
 
@@ -51,7 +61,6 @@ public class NotificationService {
         return new NotificationResponse(
                 notification.getNotificationId(),
                 notification.getNotificationType(),
-                notification.getRecipientReference(),
                 notification.getMessage(),
                 notification.getStatus()
         );
