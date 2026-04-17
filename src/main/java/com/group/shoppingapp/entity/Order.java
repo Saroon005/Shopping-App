@@ -3,7 +3,6 @@ package com.group.shoppingapp.entity;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.apache.catalina.User;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
