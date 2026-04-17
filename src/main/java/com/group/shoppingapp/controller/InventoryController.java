@@ -31,9 +31,8 @@ public class InventoryController {
     }
 
     @PutMapping("/{id}")
-    public InventoryDTO updateInventory(
-            @PathVariable Long id,
-            @RequestBody InventoryDTO dto) {
+    public InventoryDTO updateInventory(@PathVariable Long id,
+                                        @RequestBody InventoryDTO dto) {
         return inventoryService.updateInventory(id, dto);
     }
 
