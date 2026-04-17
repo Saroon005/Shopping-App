@@ -3,6 +3,8 @@ package com.group.shoppingapp.controller;
 import com.group.shoppingapp.dto.NotificationRequest;
 import com.group.shoppingapp.dto.NotificationResponse;
 import com.group.shoppingapp.service.NotificationService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,11 +13,9 @@ import java.util.List;
 @RequestMapping("/api/notifications")
 public class NotificationController {
 
-    private final NotificationService service;
+	@Autowired
+    private NotificationService service;
 
-    public NotificationController(NotificationService service) {
-        this.service = service;
-    }
 
     @PostMapping
     public NotificationResponse createNotification(@RequestBody NotificationRequest request) {
@@ -32,8 +32,4 @@ public class NotificationController {
         return service.getNotificationById(id);
     }
 
-    @GetMapping("/user/{userId}")
-    public List<NotificationResponse> getNotificationsByUser(@PathVariable String userId) {
-        return service.getNotificationsByUser(userId);
-    }
 }

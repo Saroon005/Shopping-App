@@ -15,17 +15,13 @@ import java.util.stream.Collectors;
 
 @Service
 public class NotificationService {
-	
-    private final NotificationRepository repository;
     
     @Autowired
     private UserRepository userRepo;
     
-
-    public NotificationService(NotificationRepository repository) {
-        this.repository = repository;
-    }
-
+    @Autowired
+    private NotificationRepository repository;
+    
     public NotificationResponse createNotification(NotificationRequest request) {
         Notification notification = new Notification();
         notification.setNotificationType(request.getNotificationType());
@@ -51,11 +47,6 @@ public class NotificationService {
                 .orElseThrow(() -> new RuntimeException("Notification not found"));
     }
 
-    public List<NotificationResponse> getNotificationsByUser(String userId) {
-        return repository.findByRecipientReference(userId).stream()
-                .map(this::mapToResponse)
-                .collect(Collectors.toList());
-    }
 
     private NotificationResponse mapToResponse(Notification notification) {
         return new NotificationResponse(
