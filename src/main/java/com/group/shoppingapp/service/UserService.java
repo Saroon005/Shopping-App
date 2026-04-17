@@ -11,9 +11,13 @@ public class UserService
 {
     public void createUser(UserDTO dto) {};
 
-    public List<UserDTO> getAllUsers(){};
+    public List<UserDTO> getAllUsers(){
+    	return null;
+    };
 
-    public UserDTO getUserById(Long id) {};
+    public UserDTO getUserById(Long id) {
+    	return null;
+    };
 
     public void updateUser(Long id, UserDTO dto) {};
 

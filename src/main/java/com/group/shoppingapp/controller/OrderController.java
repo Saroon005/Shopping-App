@@ -31,7 +31,7 @@ public class OrderController {
 		return orderService.fetchAllOrders();
 	}
 	
-	@GetMapping("/orders/${id}")
+	@GetMapping("/orders/{id}")
 	public Order fetchOrder(@PathVariable Long id) {
 		return orderService.fetchOrder(id);
 	}
