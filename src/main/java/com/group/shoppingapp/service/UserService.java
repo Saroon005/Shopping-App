@@ -7,15 +7,15 @@ import org.springframework.stereotype.Service;
 import com.group.shoppingapp.dto.UserDTO;
 
 @Service
-public interface UserService 
+public class UserService 
 {
-    void createUser(UserDTO dto);
+    public void createUser(UserDTO dto) {};
 
-    List<UserDTO> getAllUsers();
+    public List<UserDTO> getAllUsers(){};
 
-    UserDTO getUserById(Long id);
+    public UserDTO getUserById(Long id) {};
 
-    void updateUser(Long id, UserDTO dto);
+    public void updateUser(Long id, UserDTO dto) {};
 
-    void deleteUser(Long id);
+    public void deleteUser(Long id) {};
 }
