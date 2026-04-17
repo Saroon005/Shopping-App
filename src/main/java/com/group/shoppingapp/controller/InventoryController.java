@@ -3,6 +3,8 @@ package com.group.shoppingapp.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.group.shoppingapp.dto.InventoryDTO;
@@ -16,28 +18,33 @@ public class InventoryController {
     private InventoryService inventoryService;
 
     @PostMapping
-    public InventoryDTO createInventory(@RequestBody InventoryDTO dto) {
-        return inventoryService.createInventory(dto);
+    public ResponseEntity<InventoryDTO> createInventory(@RequestBody InventoryDTO dto) {
+        InventoryDTO created = inventoryService.createInventory(dto);
+        return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
     @GetMapping
-    public List<InventoryDTO> getAllInventory() {
-        return inventoryService.getAllInventory();
+    public ResponseEntity<List<InventoryDTO>> getAllInventory() {
+        List<InventoryDTO> list = inventoryService.getAllInventory();
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public InventoryDTO getById(@PathVariable Long id) {
-        return inventoryService.getById(id);
+    public ResponseEntity<InventoryDTO> getById(@PathVariable Long id) {
+        InventoryDTO dto = inventoryService.getById(id);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public InventoryDTO updateInventory(@PathVariable Long id,
-                                        @RequestBody InventoryDTO dto) {
-        return inventoryService.updateInventory(id, dto);
+    public ResponseEntity<InventoryDTO> updateInventory(@PathVariable Long id,
+                                                        @RequestBody InventoryDTO dto) {
+        InventoryDTO updated = inventoryService.updateInventory(id, dto);
+        return new ResponseEntity<>(updated, HttpStatus.OK);
     }
 
     @GetMapping("/low-stock")
-    public List<InventoryDTO> getLowStock() {
-        return inventoryService.getLowStock();
+    public ResponseEntity<List<InventoryDTO>> getLowStock() {
+        List<InventoryDTO> lowStockList = inventoryService.getLowStock();
+        return new ResponseEntity<>(lowStockList, HttpStatus.OK);
     }
 }
