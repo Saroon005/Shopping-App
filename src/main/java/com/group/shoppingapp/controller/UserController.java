@@ -18,7 +18,7 @@ public class UserController
 	@Autowired
 	private UserService service;
 
-	@PostMapping
+	@PostMapping("/create")
 	public String createUser(@RequestBody UserDTO dto) 
 	{
 		service.createUser(dto);
@@ -26,7 +26,7 @@ public class UserController
 	}
 
 
-	@GetMapping
+	@GetMapping("/get")
 	public List<UserDTO>  getAllUsers()
 	{
 		return service.getAllUsers();
@@ -34,13 +34,13 @@ public class UserController
 
 
 
-	@GetMapping("/{id}")
+	@GetMapping("/get/{id}")
 	public UserDTO getUserById(@PathVariable Long id) 
 	{
 		return service.getUserById(id);
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping("/update/{id}")
 	public String updateUser(@PathVariable Long id, @RequestBody UserDTO dto)
 	{
 		service.updateUser(id, dto);
