@@ -13,8 +13,10 @@ import com.group.shoppingapp.entity.Order;
 import com.group.shoppingapp.entity.OrderItem;
 import com.group.shoppingapp.entity.OrderStatus;
 import com.group.shoppingapp.entity.Product;
+import com.group.shoppingapp.entity.User;
 import com.group.shoppingapp.repository.OrderRepository;
 import com.group.shoppingapp.repository.ProductRepository;
+import com.group.shoppingapp.repository.UserRepository;
 
 @Service
 public class OrderService {
@@ -24,6 +26,9 @@ public class OrderService {
 
     @Autowired
     private OrderRepository orderRepo;
+    
+    @Autowired
+    private UserRepository userRepo;
 
     public Order createOrder(OrderDTO orderDTO) {
 
@@ -55,5 +60,23 @@ public class OrderService {
 
         return orderRepo.save(order);
     }
+    
+    public List<Order> fetchAllOrders(){
+    	return orderRepo.findAll();    	
+    }
+    
+    public Order fetchOrder(Long id) {
+    	return orderRepo.findById(id).orElseThrow(()->new RuntimeException("The Order doesn't exist"));
+    }
+    
+    public List<Order> fetchOrdersByUser(Long userId){
+    	
+    	User user = userRepo.findById(userId).orElse(null);
+    	List<Order> orders = orderRepo.findByUser(user);
+    	
+    	return orders;
+    }
+    
+    
 	
 }
