@@ -2,7 +2,6 @@ package com.group.shoppingapp.entity;
 
 
 
-
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -23,11 +22,11 @@ public class User {
     public User() {}
 
    
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "order")
     private List<Order> orders;
 
    
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "notification")
     private List<Notification> notifications;
 
 	public Long getId() {
