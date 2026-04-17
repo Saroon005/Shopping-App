@@ -22,11 +22,11 @@ public class User {
     public User() {}
 
    
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "user")
     private List<Order> orders;
 
    
-    @OneToMany(mappedBy = "notification")
+    @OneToMany(mappedBy = "user")
     private List<Notification> notifications;
 
 	public Long getId() {
