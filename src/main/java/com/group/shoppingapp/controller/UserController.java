@@ -12,8 +12,6 @@ import com.group.shoppingapp.service.UserService;
 
 @RestController
 @RequestMapping("/users")
-
-
 public class UserController 
 {
 

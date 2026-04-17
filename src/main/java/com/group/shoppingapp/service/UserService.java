@@ -1,8 +1,12 @@
 package com.group.shoppingapp.service;
 
 import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.group.shoppingapp.dto.UserDTO;
 
+@Service
 public interface UserService 
 {
     void createUser(UserDTO dto);
