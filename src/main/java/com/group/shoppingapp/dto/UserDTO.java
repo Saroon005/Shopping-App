@@ -2,13 +2,28 @@
 
 package com.group.shoppingapp.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class UserDTO {
 
+
+	
     private Long id;
+    
+    @NotBlank(message = "First name cannot be empty")  
     private String firstName;
+    
+    @NotBlank(message = "Last name cannot be empty")
     private String lastName;
+    
+    @NotBlank(message = "E- mail cannot be empty")
     private String email;
+    
+    @NotNull(message = "Number cannot be null")
     private Long number;
+    
+    @NotNull(message = "Role cannot be null")
     private String role;
 
     public UserDTO() {}

@@ -26,10 +26,10 @@ public class User {
     private List<Order> orders;
 
    
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user") 
     private List<Notification> notifications;
 
-	public Long getId() {
+	public Long getId()  {
 		return id;
 	}
 

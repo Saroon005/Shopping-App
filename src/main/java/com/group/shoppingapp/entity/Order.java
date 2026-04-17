@@ -3,6 +3,8 @@ package com.group.shoppingapp.entity;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.group.shoppingapp.entity.User;
+//import org.apache.catalina.User;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -23,6 +25,7 @@ public class Order {
 	private Long id;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
+	
 	@JoinColumn(name = "user_id")
 	private User user;
 	
@@ -37,16 +40,9 @@ public class Order {
 
 	@OneToMany(mappedBy = "order")
 	private List<OrderItem> orderItemList;
-		
-		
-	public List<OrderItem> getOrderItemList() {
-		return orderItemList;
-	}
-
-	public void setOrderItemList(List<OrderItem> orderItemList) {
-		this.orderItemList = orderItemList;
-	}
-
+	
+	
+	
 	public Order() {
 		orderDate = LocalDateTime.now();
 	}
