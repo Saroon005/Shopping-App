@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.group.shoppingapp.dto.UserDTO;
 import com.group.shoppingapp.service.UserService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/users")
@@ -20,7 +21,7 @@ public class UserController
 
  
     @PostMapping("/create")
-    public ResponseEntity<String> createUser(@RequestBody UserDTO dto) 
+    public ResponseEntity<String> createUser(@Valid @RequestBody UserDTO dto) 
     {
         service.createUser(dto);
         return new ResponseEntity<>("User created successfully", HttpStatus.CREATED);
@@ -50,7 +51,7 @@ public class UserController
 
     
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody UserDTO dto) 
+    public ResponseEntity<String> updateUser(@PathVariable Long id, @Valid @RequestBody UserDTO dto) 
     {
         service.updateUser(id, dto);
         return new ResponseEntity<>("User updated successfully", HttpStatus.OK);

@@ -6,6 +6,7 @@ import com.group.shoppingapp.service.NotificationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class NotificationController {
 
 
     @PostMapping
-    public NotificationResponse createNotification(@RequestBody NotificationRequest request) {
+    public NotificationResponse createNotification(@Valid @RequestBody NotificationRequest request) {
         return service.createNotification(request);
     }
 
