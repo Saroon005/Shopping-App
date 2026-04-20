@@ -3,6 +3,8 @@ package com.group.shoppingapp.service;
 import com.group.shoppingapp.dto.ProductRequestDTO;
 import com.group.shoppingapp.dto.ProductResponseDTO;
 import com.group.shoppingapp.entity.Product;
+import com.group.shoppingapp.exception.InvalidProductException;
+import com.group.shoppingapp.exception.ProductNotFoundException;
 import com.group.shoppingapp.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +23,7 @@ public class ProductService {
     public ProductResponseDTO createProduct(ProductRequestDTO request) {
 
         if (productRepository.existsBySku(request.getSku())) {
-            throw new RuntimeException("Product with this SKU already exists");
+            throw new InvalidProductException("Product with this SKU already exists");
         }
 
         Product product = new Product();
@@ -45,7 +47,7 @@ public class ProductService {
     public ProductResponseDTO getProductById(Long id) {
 
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(() -> new ProductNotFoundException("Product not found"));
 
         return mapToResponse(product);
     }
@@ -53,11 +55,11 @@ public class ProductService {
     public ProductResponseDTO updateProduct(Long id, ProductRequestDTO request) {
 
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(() -> new ProductNotFoundException("Product not found"));
 
         if (!product.getSku().equals(request.getSku()) &&
                 productRepository.existsBySku(request.getSku())) {
-            throw new RuntimeException("SKU already exists");
+            throw new InvalidProductException("SKU already exists");
         }
 
         product.setName(request.getName());
@@ -73,7 +75,7 @@ public class ProductService {
     public void deleteProduct(Long id) {
 
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(() -> new ProductNotFoundException("Product not found"));
 
         productRepository.delete(product);
     }
@@ -93,7 +95,7 @@ public class ProductService {
     public ProductResponseDTO getProductBySku(String sku) {
 
         Product product = productRepository.findBySku(sku)
-                .orElseThrow(() -> new RuntimeException("Product not found with SKU"));
+                .orElseThrow(() -> new ProductNotFoundException("Product not found with SKU"));
 
         return mapToResponse(product);
     }

@@ -67,5 +67,15 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> handleUserNotFound(UserNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
+    
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<?> handleProductNotFound(ProductNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+    
+    @ExceptionHandler(InvalidProductException.class)
+    public ResponseEntity<?> handleInvalidProduct(InvalidProductException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
 
 }
