@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.NotEmpty;
 
 public class OrderDTO {
+	private Long id;
+	
 
     @NotNull(message = "User ID cannot be null")
     private Long user_id;

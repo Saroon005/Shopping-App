@@ -13,7 +13,6 @@ import com.group.shoppingapp.repository.UserRepository;
 @Service
 public class UserService 
 {
-
 	@Autowired
 	private UserRepository repository;
 

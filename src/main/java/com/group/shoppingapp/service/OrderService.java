@@ -89,8 +89,6 @@ public class OrderService {
     	List<Order> orders = orderRepo.findByUser(user);
     	
     	return orders;
-    }
-    
-    
+    }        
 	
 }

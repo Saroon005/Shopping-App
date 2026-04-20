@@ -43,6 +43,14 @@ public class Order {
 	
 	
 	
+	public List<OrderItem> getOrderItemList() {
+		return orderItemList;
+	}
+
+	public void setOrderItemList(List<OrderItem> orderItemList) {
+		this.orderItemList = orderItemList;
+	}
+
 	public Order() {
 		orderDate = LocalDateTime.now();
 	}
@@ -89,6 +97,11 @@ public class Order {
 
 	public void setOrderStatus(OrderStatus orderStatus) {
 		this.orderStatus = orderStatus;
+	}
+
+	public void setId(long l) {
+		this.id=l;
+		
 	}
 	
 	
