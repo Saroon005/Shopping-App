@@ -14,6 +14,9 @@ import com.group.shoppingapp.entity.OrderItem;
 import com.group.shoppingapp.entity.OrderStatus;
 import com.group.shoppingapp.entity.Product;
 import com.group.shoppingapp.entity.User;
+import com.group.shoppingapp.exception.InvalidOrderException;
+import com.group.shoppingapp.exception.OrderNotFoundException;
+import com.group.shoppingapp.exception.UserNotFoundException;
 import com.group.shoppingapp.repository.OrderRepository;
 import com.group.shoppingapp.repository.ProductRepository;
 import com.group.shoppingapp.repository.UserRepository;
@@ -32,6 +35,13 @@ public class OrderService {
 
     public Order createOrder(OrderDTO orderDTO) {
 
+    	if (orderDTO.getOrderItemsList() == null || orderDTO.getOrderItemsList().isEmpty()) {
+    	    throw new InvalidOrderException("Order must contain at least one item");
+    	}
+
+    	if (orderDTO.getUser_id() == null) {
+    	    throw new InvalidOrderException("User ID is required");
+    	}
         Order order = new Order();
         order.setOrderStatus(OrderStatus.CREATED);
         order.setOrderDate(LocalDateTime.now());
@@ -61,17 +71,21 @@ public class OrderService {
         return orderRepo.save(order);
     }
     
+    
     public List<Order> fetchAllOrders(){
     	return orderRepo.findAll();    	
     }
     
+    
     public Order fetchOrder(Long id) {
-    	return orderRepo.findById(id).orElseThrow(()->new RuntimeException("The Order doesn't exist"));
+    	return orderRepo.findById(id)
+    			.orElseThrow(() -> new OrderNotFoundException(id));
     }
     
     public List<Order> fetchOrdersByUser(Long userId){
     	
-    	User user = userRepo.findById(userId).orElse(null);
+    	User user = userRepo.findById(userId)
+    	        .orElseThrow(() -> new UserNotFoundException(userId));
     	List<Order> orders = orderRepo.findByUser(user);
     	
     	return orders;
