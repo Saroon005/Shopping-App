@@ -42,7 +42,13 @@ public class OrderService {
     	if (orderDTO.getUser_id() == null) {
     	    throw new InvalidOrderException("User ID is required");
     	}
+
+    	// Fetch user from database
+    	User user = userRepo.findById(orderDTO.getUser_id())
+    	        .orElseThrow(() -> new RuntimeException("User not found"));
+
         Order order = new Order();
+        order.setUser(user);
         order.setOrderStatus(OrderStatus.CREATED);
         order.setOrderDate(LocalDateTime.now());
 

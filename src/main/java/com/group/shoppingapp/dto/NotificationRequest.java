@@ -1,8 +1,16 @@
 package com.group.shoppingapp.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class NotificationRequest {
+    @NotBlank(message = "Notification type cannot be empty")
     private String notificationType;
+    
+    @NotBlank(message = "Message cannot be empty")
     private String message;
+    
+    @NotNull(message = "User ID cannot be null")
     private Long user_id;
 
     public NotificationRequest() {}

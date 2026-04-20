@@ -59,6 +59,10 @@ class UserServiceTest {
         verify(userRepository, times(1)).save(any(User.class));
     }
 
+    @Test
+    void testCreateUser_NullDTO() {
+        assertDoesNotThrow(() -> userService.createUser(null));
+    }
 
     @Test
     void testGetAllUsers_Success() {
@@ -140,23 +144,32 @@ class UserServiceTest {
         verify(userRepository, never()).save(any(User.class));
     }
 
-//    @Test
-//    void testUpdateUser_NullDTO() {
-//        when(userRepository.findById(1L)).thenReturn(Optional.of(testUser));
-//
-//        userService.updateUser(1L, null);
-//
-//        verify(userRepository, times(1)).findById(1L);
-//    }
+    @Test
+    void testUpdateUser_NullDTO() {
+        when(userRepository.findById(1L)).thenReturn(Optional.of(testUser));
 
-//    @Test
-//    void testDeleteUser_Success() {
-//        when(userRepository.findById(1L)).thenReturn(Optional.of(testUser));
-//
-//        userService.deleteUser(1L);
-//
-//        verify(userRepository, times(1)).deleteById(1L);
-//    }
+        userService.updateUser(1L, null);
+
+        verify(userRepository, times(1)).findById(1L);
+    }
+
+    @Test
+    void testDeleteUser_Success() {
+        when(userRepository.findById(1L)).thenReturn(Optional.of(testUser));
+
+        userService.deleteUser(1L);
+
+        verify(userRepository, times(1)).deleteById(1L);
+    }
+
+    @Test
+    void testDeleteUser_UserNotFound() {
+        when(userRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        userService.deleteUser(999L);
+
+        verify(userRepository, never()).deleteById(anyLong());
+    }
 
     @Test
     void testCreateUser_MultipleUsers() {

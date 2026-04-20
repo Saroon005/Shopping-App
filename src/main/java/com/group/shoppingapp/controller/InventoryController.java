@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.group.shoppingapp.dto.InventoryDTO;
 import com.group.shoppingapp.service.InventoryService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/inventory")
@@ -18,7 +19,7 @@ public class InventoryController {
     private InventoryService inventoryService;
 
     @PostMapping
-    public ResponseEntity<InventoryDTO> createInventory(@RequestBody InventoryDTO dto) {
+    public ResponseEntity<InventoryDTO> createInventory(@Valid @RequestBody InventoryDTO dto) {
         InventoryDTO created = inventoryService.createInventory(dto);
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
@@ -37,7 +38,7 @@ public class InventoryController {
 
     @PutMapping("/{id}")
     public ResponseEntity<InventoryDTO> updateInventory(@PathVariable Long id,
-                                                        @RequestBody InventoryDTO dto) {
+                                                        @Valid @RequestBody InventoryDTO dto) {
         InventoryDTO updated = inventoryService.updateInventory(id, dto);
         return new ResponseEntity<>(updated, HttpStatus.OK);
     }

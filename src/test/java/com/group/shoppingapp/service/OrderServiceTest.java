@@ -115,6 +115,93 @@ class OrderServiceTest {
         verify(orderRepository, never()).save(any(Order.class));
     }
 
+    @Test
+    void testCreateOrder_Success() {
+        when(userRepository.findById(1L)).thenReturn(Optional.of(testUser));
+        when(productRepository.findById(1L)).thenReturn(Optional.of(testProduct));
+        when(orderRepository.save(any(Order.class))).thenReturn(testOrder);
+
+        Order result = orderService.createOrder(orderDTO);
+
+        assertNotNull(result);
+        assertEquals(OrderStatus.CREATED, result.getOrderStatus());
+        assertEquals(testUser.getId(), result.getUser().getId());
+        verify(orderRepository, times(1)).save(any(Order.class));
+        verify(userRepository, times(1)).findById(1L);
+    }
+
+    @Test
+    void testCreateOrder_UserNotFound() {
+        when(userRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        assertThrows(RuntimeException.class, () -> {
+            orderService.createOrder(orderDTO);
+        });
+
+        verify(orderRepository, never()).save(any(Order.class));
+    }
+
+    @Test
+    void testCreateOrder_ProductNotFound() {
+        when(userRepository.findById(1L)).thenReturn(Optional.of(testUser));
+        when(productRepository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(RuntimeException.class, () -> {
+            orderService.createOrder(orderDTO);
+        });
+
+        verify(orderRepository, never()).save(any(Order.class));
+    }
+
+    @Test
+    void testCreateOrder_MultipleItems() {
+        Product product2 = new Product();
+        product2.setId(2L);
+        product2.setName("Mouse");
+        product2.setPrice(29.99);
+
+        OrderItemDTO item2 = new OrderItemDTO();
+        item2.setProduct_id(2L);
+        item2.setQuantity(3);
+
+        orderDTO.setOrderItemsList(Arrays.asList(
+                orderDTO.getOrderItemsList().get(0),
+                item2
+        ));
+
+        when(userRepository.findById(1L)).thenReturn(Optional.of(testUser));
+        when(productRepository.findById(1L)).thenReturn(Optional.of(testProduct));
+        when(productRepository.findById(2L)).thenReturn(Optional.of(product2));
+        when(orderRepository.save(any(Order.class))).thenReturn(testOrder);
+
+        Order result = orderService.createOrder(orderDTO);
+
+        assertNotNull(result);
+        verify(orderRepository, times(1)).save(any(Order.class));
+    }
+
+    @Test
+    void testCreateOrder_CalculatesTotalCorrectly() {
+        when(userRepository.findById(1L)).thenReturn(Optional.of(testUser));
+        when(productRepository.findById(1L)).thenReturn(Optional.of(testProduct));
+        
+        Order mockOrder = new Order();
+        mockOrder.setId(1L);
+        mockOrder.setUser(testUser);
+        mockOrder.setTotalAmount(1999.98); // 999.99 * 2
+        mockOrder.setOrderStatus(OrderStatus.CREATED);
+
+        when(orderRepository.save(any(Order.class))).thenAnswer(invocation -> {
+            Order order = invocation.getArgument(0);
+            order.setId(1L);
+            return order;
+        });
+
+        Order result = orderService.createOrder(orderDTO);
+
+        assertNotNull(result);
+        verify(orderRepository, times(1)).save(any(Order.class));
+    }
 
     @Test
     void testFetchAllOrders_Success() {
