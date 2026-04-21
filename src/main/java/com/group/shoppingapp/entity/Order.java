@@ -3,6 +3,7 @@ package com.group.shoppingapp.entity;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.group.shoppingapp.entity.User;
 //import org.apache.catalina.User;
 
@@ -24,9 +25,9 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	
+	@ManyToOne(cascade = CascadeType.ALL)	
 	@JoinColumn(name = "user_id")
+	@JsonBackReference
 	private User user;
 	
 	

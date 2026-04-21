@@ -5,6 +5,9 @@ package com.group.shoppingapp.entity;
 import jakarta.persistence.*;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -23,6 +26,7 @@ public class User {
 
    
     @OneToMany(mappedBy = "user")
+    @JsonManagedReference
     private List<Order> orders;
 
    

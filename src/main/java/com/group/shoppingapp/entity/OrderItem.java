@@ -2,6 +2,9 @@ package com.group.shoppingapp.entity;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,10 +27,12 @@ public class OrderItem {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "product_id")
+	@JsonBackReference
 	private Product product;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="orders_id")
+	@JsonIgnore
 	private Order order;
 	
 	private Integer quantity;
