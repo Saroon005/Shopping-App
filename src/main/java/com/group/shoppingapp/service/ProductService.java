@@ -72,12 +72,13 @@ public class ProductService {
         return mapToResponse(updatedProduct);
     }
 
-    public void deleteProduct(Long id) {
+    public String deleteProduct(Long id) {
 
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException("Product not found"));
 
         productRepository.delete(product);
+        return "deleted successfully";
     }
 
     private ProductResponseDTO mapToResponse(Product product) {
